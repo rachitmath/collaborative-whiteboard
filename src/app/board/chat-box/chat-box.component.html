@@ -21,7 +21,7 @@
             <!-- Chat Header End-->
 
             <!-- Chat Content Start-->
-            <div class="chat-content p-2" id="messageBody">
+            <div class="chat-content p-2" id="messageBody" #chatBox>
                 <div class="container">
 
                     <!-- Message Day Start -->
@@ -79,7 +79,8 @@
                         <div class="input-group">
                             <!-- Textarea Start-->
                             <textarea class="form-control transparent-bg border-0 no-resize hide-scrollbar"
-                                placeholder="Write your message..." rows="1" [(ngModel)]="message"></textarea>
+                                placeholder="Write your message..." rows="1" [(ngModel)]="message"
+                                (keyup.enter)="onSubmit()"></textarea>
                             <!-- Textarea End -->
                         </div>
                     </div>
