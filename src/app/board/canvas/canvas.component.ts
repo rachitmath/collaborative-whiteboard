@@ -14,8 +14,8 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('canvas', { static: true }) public canvas: ElementRef;
 
-  @Input() public width = 820;
-  @Input() public height = 585;
+  @Input() public width = 900;
+  @Input() public height = 575;
 
   @Input() markerColor: string;
   @Input() size: number;
