@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges, AfterViewInit } from '@angular/core';
 import { ChatsService } from 'src/app/shared/services/chats.service';
-import * as io from 'socket.io-client';
 import { ActivatedRoute } from '@angular/router';
 
 export class All {
@@ -19,7 +18,6 @@ export class ChatBoxComponent implements OnInit {
   public data: All[] = [];
   public message;
 
-  public socket = io('http://localhost:4000');
   public boardId: any;
 
   constructor(

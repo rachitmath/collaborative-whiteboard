@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, AfterViewInit, OnChang
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators';
 import * as io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-canvas',
@@ -22,7 +23,8 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
 
   public cx: CanvasRenderingContext2D;
 
-  public socket = io('http://localhost:4000');
+  public url = environment.apiUrl;
+  public socket = io(this.url);
 
   constructor() { }
 
