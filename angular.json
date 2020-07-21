@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "whiteboard-web"
+    }
+  },
+  "defaultProject": "whiteboard-web",
+  "cli": {
+    "analytics": "2d1f89ed-26f5-470f-b2dd-31437f3f7c2f"
+  }
 }

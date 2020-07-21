@@ -1,0 +1,101 @@
+<main class="main main-visible shadow-sm mt-5 mr-3 rounded">
+    <!-- Chats Page Start -->
+    <div class="chats">
+        <div class="chat-body">
+
+            <!-- Chat Header Start-->
+            <div class="chat-header">
+
+                <!-- Chat participant's Name -->
+                <div class="media chat-name align-items-center text-truncate">
+                    <div class="avatar avatar-online d-none d-sm-inline-block mr-3">
+                        <img src="http://frontendmatters.org/quicky/assets/media/avatar/2.png" alt="">
+                    </div>
+
+                    <div class="media-body align-self-center ">
+                        <h6 class="text-truncate mb-0">{{userName}}</h6>
+                        <small class="text-muted">Online</small>
+                    </div>
+                </div>
+            </div>
+            <!-- Chat Header End-->
+
+            <!-- Chat Content Start-->
+            <div class="chat-content p-2" id="messageBody">
+                <div class="container">
+
+                    <!-- Message Day Start -->
+                    <div class="message-day" *ngIf="data">
+
+                        <ng-container *ngFor="let data of data">
+                            <div class="message-divider sticky-top pb-2" *ngIf="data?.username === 'SERVER'"
+                                [attr.data-label]="data?.message">&nbsp;</div>
+
+                            <!-- Received Message Start -->
+                            <div class="message" *ngIf="data?.username !== userName && data?.username !== 'SERVER'">
+                                <div class="message-wrapper">
+                                    <div class="message-content">
+                                        <span>{{data.message}}</span>
+                                    </div>
+                                </div>
+                                <div class="message-options">
+                                    <div class="avatar avatar-sm"><img alt=""
+                                            src="http://frontendmatters.org/quicky/assets/media/avatar/6.png"></div>
+                                    <span class="message-date">9:12am</span>
+                                </div>
+                            </div>
+                            <!-- Received Message End -->
+
+                            <!-- Self Message Start -->
+                            <div class="message self" *ngIf="data?.username === userName">
+                                <div class="message-wrapper">
+                                    <div class="message-content">
+                                        <span>{{data.message}}</span>
+                                    </div>
+                                </div>
+                                <div class="message-options">
+                                    <div class="avatar avatar-sm"><img alt=""
+                                            src="http://frontendmatters.org/quicky/assets/media/avatar/6.png"></div>
+
+                                    <span class="message-date">9:12am</span>
+                                    <span class="message-status">Edited</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!-- Scroll to finish -->
+                <div class="chat-finished" id="chat-finished"></div>
+            </div>
+            <!-- Chat Content End-->
+
+
+            <!-- Chat Footer Start-->
+            <div class="chat-footer">
+                <div class="form-row align-items-center">
+                    <!-- Chat Input Group Start -->
+                    <div class="col">
+                        <div class="input-group">
+                            <!-- Textarea Start-->
+                            <textarea class="form-control transparent-bg border-0 no-resize hide-scrollbar"
+                                placeholder="Write your message..." rows="1" [(ngModel)]="message"></textarea>
+                            <!-- Textarea End -->
+                        </div>
+                    </div>
+                    <!-- Chat Input Group End -->
+
+                    <!-- Submit Button Start -->
+                    <div class="col-auto">
+                        <div class="btn btn-primary btn-icon rounded-circle text-light mb-1" role="button"
+                            (click)="onSubmit()">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <!-- Submit Button End-->
+                </div>
+            </div>
+            <!-- Chat Footer End-->
+        </div>
+    </div>
+</main>

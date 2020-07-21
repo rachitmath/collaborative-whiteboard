@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+
+<section style="width: 100%;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="nav sm-4 med-4 lg-4 flex-column bg-light justify-content-center align-items-center rounded">
+                    <!-- <input class="sm-4 med-4" type='text' (colorPickerChange)="update(selectedColor)"
+                (colorPickerSelect)="update(selectedColor)" [cpFallbackColor]="000000" [cpOKButton]="true"
+                [cpOKButtonClass]="'btn btn-primary btn-xs'" [(colorPicker)]="selectedColor"
+                [style.background]="selectedColor" [cpPosition]="'bottom'" value="Pick a Color" /> -->
+
+                    <!-- <input [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" /> -->
+                    <div class="p2 m-2" (click)="selectDrawType('pencil')">
+                        <a href="javascript:void(0)">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                    </div>
+                    <!-- <div class="p2 m-2" (click)="medify()">
+                        <a href="javascript:void(0)">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                    </div> -->
+                    <div class="p2 m-2" (click)="selectDrawType('brush')">
+                        <a href="javascript:void(0)">
+                            <i class="fas fa-paint-brush"></i>
+                        </a>
+                    </div>
+                    <div class="p2 m-2" (click)="eraser()">
+                        <a href="javascript:void(0)">
+                            <i class="fas fa-eraser"></i>
+                        </a>
+                    </div>
+                    <!-- <button (click)="microify()" class="btn btn-secondary med-1 sm-1">Tiny</button>
+                    <button (click)="smallify()" class="btn btn-secondary med-1 sm-1">Small</button>
+                    <button (click)="medify()" class="btn btn-secondary med-1 sm-1">Med</button>
+                    <button (click)="bigify()" class="btn btn-secondary med-1 sm-1">Large</button> -->
+                    <!-- <div class="btn-group btn-group-toggle selector med-2 sm-2" data-toggle="buttons">
+                        <label class="btn btn-primary active" (click)="draw(selectedColor)">
+                            <input type="radio" name="options" autocomplete="off" checked> Draw
+                        </label>
+                        <label class="btn btn-primary" (click)="eraser()">
+                            <input type="radio" name="options" autocomplete="off"> Erase
+                        </label>
+                    </div> -->
+                    <!-- <button (click)="clear()" class="btn btn-danger med-2 sm-2">Clear</button> -->
+                </div>
+                <app-canvas [(markerColor)]="selectedColor" [size]="selectedSize" [cursorType]="cursorType">
+                </app-canvas>
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4">
+                <app-chat-box></app-chat-box>
+            </div>
+        </div>
+    </div>
+</section>
