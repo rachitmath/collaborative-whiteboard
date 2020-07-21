@@ -8,6 +8,7 @@ import { CanvasComponent } from './canvas/canvas.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { FormsModule } from '@angular/forms';
+import { ClipboardModule } from 'ngx-clipboard';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     BoardRoutingModule,
     ColorPickerModule,
-    FormsModule
+    FormsModule,
+    ClipboardModule
   ]
 })
 export class BoardModule { }

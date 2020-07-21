@@ -8,8 +8,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav w-50 mx-auto justify-content-center">
             <li class="nav-item w-100 text-right">
-                <a class="nav-link text-white" href="#">
-                    <span class="mr-2">https://getbootstrap.com/docs/4.5/components/navbar/</span>
+                <a class="nav-link text-white" href="javascript:void(0)" (click)="onSuccess()" ngxClipboard
+                    [cbContent]="sharedUrl">
+                    <span class="mr-2">{{sharedUrl}}</span>
                     <i class="fas fa-copy"></i>
                 </a>
             </li>
