@@ -3,6 +3,7 @@ import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-canvas',
@@ -26,11 +27,23 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
   public url = environment.apiUrl;
   public socket = io(this.url);
 
-  constructor() { }
+  public boardId: any;
+
+  constructor(
+    private activateRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+
+    this.activateRoute.params.subscribe(param => {
+      this.boardId = param.boardid;
+    });
+
+
     this.socket.on('draw', function (data) {
-      this.drawOnCanvas(data.prevPos, data.currentPos, data.color, data.size);
+      if (data.room === this.boardId) {
+        this.drawOnCanvas(data.prevPos, data.currentPos, data.color, data.size);
+      }
     }.bind(this));
   }
 
@@ -93,7 +106,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
 
         // this method we'll implement soon to do the actual drawing
         this.drawOnCanvas(prevPos, currentPos, this.markerColor, this.size);
-        this.socket.emit('draw-coordinates', { prevPos, currentPos, color: this.markerColor, size: this.size });
+        this.socket.emit('draw-coordinates', { prevPos, currentPos, color: this.markerColor, size: this.size, room: this.boardId });
       });
 
     fromEvent(canvasEl, 'mousedown')
@@ -129,7 +142,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
 
         // this method we'll implement soon to do the actual drawing
         this.drawOnCanvas(prevPos, currentPos, this.markerColor, this.size);
-        this.socket.emit('draw-coordinates', { prevPos, currentPos, color: this.markerColor, size: this.size });
+        this.socket.emit('draw-coordinates', { prevPos, currentPos, color: this.markerColor, size: this.size, room: this.boardId });
 
       });
   }
