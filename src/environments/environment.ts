@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://whiteboard-socket-server.herokuapp.com'
-  // apiUrl: 'http://localhost:3000'
+  // apiUrl: 'https://whiteboard-socket-server.herokuapp.com'
+  apiUrl: 'http://localhost:3000'
 };
 
 /*

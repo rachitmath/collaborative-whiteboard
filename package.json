@@ -22,7 +22,7 @@
     "ngx-clipboard": "^13.0.1",
     "ngx-color-picker": "^7.5.0",
     "ngx-toastr": "^13.0.0",
-    "recordrtc": "^5.6.1",
+    "recordrtc": "^5.6.2",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.2",
     "socket.io-client": "^2.3.0",
