@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CanvasComponent } from './canvas/canvas.component';
 import { ChatsService } from '../shared/services/chats.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomsService } from '../shared/services/rooms.service';
+import * as RecordRTC from 'recordrtc/RecordRTC.js';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit, AfterViewInit {
+export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(CanvasComponent, { static: false })
   private canvasComponent: CanvasComponent;
@@ -23,6 +24,12 @@ export class BoardComponent implements OnInit, AfterViewInit {
   public username;
   public boardId: any;
 
+
+  private stream: MediaStream;
+  private recordRTC: any;
+
+  @ViewChild('video') video;
+
   constructor(
     private chatService: ChatsService,
     private roomService: RoomsService,
@@ -34,6 +41,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.activateRoute.params.subscribe(param => {
       this.boardId = param.boardid;
     });
+
+    this.startRecording();
 
     // this.roomService.checkTotalUserInRoom(this.boardId).then(user => {
     //   console.log(user);
@@ -125,4 +134,59 @@ export class BoardComponent implements OnInit, AfterViewInit {
     console.log('clear function called');
   }
 
+
+  successCallback(stream: MediaStream) {
+    const options = {
+      mimeType: 'video/webm', // or video/webm\;codecs=h264 or video/webm\;codecs=vp9
+      audioBitsPerSecond: 128000,
+      videoBitsPerSecond: 128000,
+      bitsPerSecond: 128000 // if this line is provided, skip above two
+    };
+    this.stream = stream;
+    this.recordRTC = RecordRTC(stream, options);
+    this.recordRTC.startRecording();
+    // const video: HTMLVideoElement = this.video.nativeElement;
+    // video.src = window.URL.createObjectURL(stream);
+    console.log(stream);
+  }
+
+  errorCallback() {
+    // handle error here
+  }
+
+  processVideo(audioVideoWebMURL) {
+    // const video: HTMLVideoElement = this.video.nativeElement;
+    const recordRTC = this.recordRTC;
+    // video.src = audioVideoWebMURL;
+    // this.toggleControls();
+    const recordedBlob = recordRTC.getBlob();
+    recordRTC.getDataURL((dataURL) => {
+      console.log(dataURL);
+    });
+  }
+
+  startRecording() {
+    const mediaConstraints: any = {
+      video: {
+        displaySurface: 'window', // monitor, window, application, browser
+        logicalSurface: true,
+        cursor: 'always' // never, always, motion
+      }, audio: true
+    };
+    // navigator.getDisplayMedia(mediaConstraints)
+    navigator.mediaDevices.getDisplayMedia(mediaConstraints)
+      .then(this.successCallback.bind(this), this.errorCallback.bind(this));
+  }
+
+  stopRecording() {
+    const recordRTC = this.recordRTC;
+    recordRTC.stopRecording(this.processVideo.bind(this));
+    const stream = this.stream;
+    stream.getAudioTracks().forEach(track => track.stop());
+    stream.getVideoTracks().forEach(track => track.stop());
+  }
+
+  ngOnDestroy() {
+    this.stopRecording();
+  }
 }
